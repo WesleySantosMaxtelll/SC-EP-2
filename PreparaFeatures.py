@@ -8,7 +8,7 @@
 
 print("oi galera")
 
-myfile = open('BVSP.xlsx', 'r')
+myfile = open('BVSP - BVSP_noMissing.csv', 'r')
 for line in myfile:
     print(line)
 
