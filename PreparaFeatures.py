@@ -1,30 +1,30 @@
-import numpy as np
-from statistics import mean
-import matplotlib.mlab as mlab
+from obter_dados import obter_dados
 import matplotlib.pyplot as plt
-import pandas as pd
+from tratamento_dados import obter_media_alisada, extracao_caracteristicas
 
-print("oi galera")
+# Recebe lista de fechamentos por ordem cronologica
+# valores, datas = obter_dados()
 
+# plt.plot(datas, valores)
+# plt.ylabel('some numbers')
+# plt.show()
+valores, datas = [15, 11, 3, 8, 7, 20, 1, 5, 8, 4, 3, 12], list(range(0,12))
 
+# print(valores)
 
+valores, datas = obter_media_alisada(valores, datas, 3)
+print(valores)
+extracao_caracteristicas(valores)
+# plt.plot(datas, valores)
+# plt.ylabel('some numbers')
+# plt.show()
 
-myfile = open('test.csv', 'r')
-inputdict= {}
-
-
-
-# df = pd.read_csv('test.csv', parse_dates=['Date'])
-df = pd.read_csv('BVSP_nomissing.csv', parse_dates=['Date'])
-print(df.head())
-print(df.Close)
-
-def plot_df(df, x, y, title="", xlabel='Date', ylabel='Close', dpi=100):
-    plt.figure(figsize=(12,5), dpi=dpi)
-    plt.plot(x, y, color='tab:red')
-    plt.gca().set(title=title, xlabel=xlabel, ylabel=ylabel)
-    plt.show()
-
-
-plot_df(df, x=df.Date, y=df.Close, title='Indice Bovespa desde 1993.')
-
+# def plot_df(df, x, y, title="", xlabel='Date', ylabel='Close', dpi=100):
+#     plt.figure(figsize=(12,5), dpi=dpi)
+#     plt.plot(x, y, color='tab:red')
+#     plt.gca().set(title=title, xlabel=xlabel, ylabel=ylabel)
+#     plt.show()
+#
+#
+# plot_df(df, x=df.Date, y=df.Close, title='Indice Bovespa desde 1993.')
+#
