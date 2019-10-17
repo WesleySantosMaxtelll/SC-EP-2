@@ -3,18 +3,28 @@ import matplotlib.pyplot as plt
 from tratamento_dados import obter_media_alisada, extracao_caracteristicas
 
 # Recebe lista de fechamentos por ordem cronologica
-# valores, datas = obter_dados()
+valores, datas = obter_dados()
 
 # plt.plot(datas, valores)
 # plt.ylabel('some numbers')
 # plt.show()
-valores, datas = [15, 11, 3, 8, 7, 20, 1, 5, 8, 4, 3, 12], list(range(0,12))
+# valores, datas = [15, 11, 3, 8, 7, 20, 1, 5, 8, 4, 3, 12], list(range(0,12))
 
 # print(valores)
+plt.plot(datas, valores)
+plt.ylabel('some numbers')
+plt.show()
 
 valores, datas = obter_media_alisada(valores, datas, 3)
+# print(valores)
+plt.plot(datas, valores)
+plt.ylabel('some numbers')
+plt.show()
+valores, datas = extracao_caracteristicas(valores, datas)
+plt.plot(datas[:250], valores[:250])
+plt.ylabel('some numbers')
+plt.show()
 print(valores)
-extracao_caracteristicas(valores)
 # plt.plot(datas, valores)
 # plt.ylabel('some numbers')
 # plt.show()
