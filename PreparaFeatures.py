@@ -1,6 +1,7 @@
 from obter_dados import obter_dados
 import matplotlib.pyplot as plt
 from tratamento_dados import obter_media_alisada, extracao_caracteristicas
+from geracao_da_rede  import agrupamento_estados_distintos
 
 # Recebe lista de fechamentos por ordem cronologica
 valores, datas = obter_dados()
@@ -11,20 +12,25 @@ valores, datas = obter_dados()
 # valores, datas = [15, 11, 3, 8, 7, 20, 1, 5, 8, 4, 3, 12], list(range(0,12))
 
 # print(valores)
-plt.plot(datas, valores)
-plt.ylabel('some numbers')
-plt.show()
+# plt.plot(datas, valores)
+# plt.ylabel('some numbers')
+# plt.show()
 
 valores, datas = obter_media_alisada(valores, datas, 3)
 # print(valores)
-plt.plot(datas, valores)
-plt.ylabel('some numbers')
-plt.show()
+# plt.plot(datas, valores)
+# plt.ylabel('some numbers')
+# plt.show()
 valores, datas = extracao_caracteristicas(valores, datas)
-plt.plot(datas[:250], valores[:250])
-plt.ylabel('some numbers')
-plt.show()
-print(valores)
+# plt.plot(datas[:250], valores[:250])
+# plt.ylabel('some numbers')
+# plt.show()
+print("caracteristicas discretizadas")
+nos_de_cada_data, valores, datas = agrupamento_estados_distintos(valores, datas)
+
+for i in range(len(valores)):
+    print(str(nos_de_cada_data[i]) + ' ' + str(valores[i]))
+
 # plt.plot(datas, valores)
 # plt.ylabel('some numbers')
 # plt.show()
