@@ -55,13 +55,13 @@ def extracao_caracteristicas(dados, datas, j=5):
         f[6].append(round((dados[i] - minimo) / (maximo - minimo),2))
 
 
-    fp, fz = {1:[], 2:[], 3:[], 4:[], 5:[], 6:[]}, {1:[], 2:[], 3:[], 4:[], 5:[], 6:[]}
+    fz = {1:[], 2:[], 3:[], 4:[], 5:[], 6:[]}
 
     for i in range(1, 7):
         media, desvio_padrao = mean(f[i]), pstdev(f[i])
         for j in range(len(f[i])):
-            fp[i].append((f[i][j]-media)/desvio_padrao)
-            fz[i].append(_arredonda_em_passos(norm.cdf(fp[i][-1])))
+            fp = (f[i][j]-media)/desvio_padrao
+            fz[i].append(_arredonda_em_passos(norm.cdf(fp)))
 
     # print(fp)
     print(fz)
@@ -69,5 +69,5 @@ def extracao_caracteristicas(dados, datas, j=5):
     V = []
     for i in range(1, comprimento_minimo+1):
         V.insert(0, [fz[x][-i] for x in range(1,7)])
-    # print('apenas para debugar')
-    return V, dados[-len(V):]
+    print('apenas para debugar')
+    return V, datas[-len(V):]
