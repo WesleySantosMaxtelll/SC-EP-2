@@ -26,10 +26,11 @@ valores, datas = extracao_caracteristicas(valores, datas)
 # plt.ylabel('some numbers')
 # plt.show()
 print("caracteristicas discretizadas")
-nos_de_cada_data, valores, datas = agrupamento_estados_distintos(valores, datas)
+valores, datas, dicionaio_conexoes = agrupamento_estados_distintos(valores, datas)
 
-for i in range(len(valores)):
-    print(str(nos_de_cada_data[i]) + ' ' + str(valores[i]))
+#
+# for i in range(len(valores)):
+#     print(str(nos_de_cada_data[i]) + ' ' + str(valores[i]))
 
 # plt.plot(datas, valores)
 # plt.ylabel('some numbers')
