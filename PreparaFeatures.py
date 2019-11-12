@@ -2,7 +2,7 @@ from obter_dados import obter_dados
 import matplotlib.pyplot as plt
 from tratamento_dados import obter_media_alisada, extracao_caracteristicas
 from geracao_da_rede  import agrupamento_estados_distintos
-
+from encontrar_comunidades import cria_comundades
 # Recebe lista de fechamentos por ordem cronologica
 valores, datas = obter_dados()
 
@@ -27,7 +27,7 @@ valores, datas = extracao_caracteristicas(valores, datas)
 # plt.show()
 print("caracteristicas discretizadas")
 valores, datas, dicionaio_conexoes = agrupamento_estados_distintos(valores, datas)
-
+cria_comundades(dicionaio_conexoes)
 #
 # for i in range(len(valores)):
 #     print(str(nos_de_cada_data[i]) + ' ' + str(valores[i]))
