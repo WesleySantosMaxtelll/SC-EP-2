@@ -15,6 +15,6 @@ def devolve_classificador(name):
     elif (name == 'NB'):
         return MultinomialNB(alpha=0.1)
     elif (name == 'MLP'):
-        return MLPClassifier(solver='lbfgs',hidden_layer_sizes=(150,150,150), alpha=1e-5, max_iter=300, learning_rate_init=0.05, power_t=0.1, learning_rate='constant',  random_state=1)
+        return MLPClassifier(solver='lbfgs',hidden_layer_sizes=(25,25), alpha=1e-5, max_iter=300, learning_rate_init=0.05, power_t=0.1, learning_rate='constant',  random_state=1)
     else:
         raise NameError('Classifier Unavailable')

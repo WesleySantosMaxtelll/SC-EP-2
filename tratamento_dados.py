@@ -70,4 +70,4 @@ def extracao_caracteristicas(dados, datas, j=5):
     for i in range(1, comprimento_minimo+1):
         V.insert(0, [fz[x][-i] for x in range(1,7)])
     print('apenas para debugar')
-    return V, datas[-len(V):]
+    return V, datas[-len(V):], dados[-len(V):]

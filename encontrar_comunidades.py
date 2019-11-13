@@ -13,6 +13,7 @@ def cria_comundades(nodes_hash_dict):
     conexoes = []
     for node in nodes_hash_dict:
         for d_node in nodes_hash_dict[node]:
+            # for _ in range(nodes_hash_dict[node][d_node]):
             conexoes.append((node, d_node))
     G.add_edges_from(conexoes)
 
@@ -22,7 +23,7 @@ def cria_comundades(nodes_hash_dict):
     # drawing
     size = float(len(set(partition.values())))
     pos = nx.spring_layout(G)
-    count = 0.
+    count = 0
     for com in set(partition.values()):
         count = count + 1.
         list_nodes = [nodes for nodes in partition.keys()
@@ -32,4 +33,8 @@ def cria_comundades(nodes_hash_dict):
 
     nx.draw_networkx_edges(G, pos, alpha=0.5)
     plt.show()
-    print ()
+    return partition
+
+
+def devolve_label(partition, datas, valores):
+    pass
