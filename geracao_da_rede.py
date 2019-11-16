@@ -1,26 +1,44 @@
 from statistics import mean,pstdev
 from scipy.stats import norm
 import math
+import hashlib
+import base64
 
+def make_hash_sha256(o):
+    hasher = hashlib.sha256()
+    hasher.update(repr(make_hashable(o)).encode())
+    return base64.b64encode(hasher.digest()).decode()
+
+def make_hashable(o):
+    if isinstance(o, (tuple, list)):
+        return tuple((make_hashable(e) for e in o))
+
+    if isinstance(o, dict):
+        return tuple(sorted((k,make_hashable(v)) for k,v in o.items()))
+
+    if isinstance(o, (set, frozenset)):
+        return tuple(sorted(make_hashable(e) for e in o))
+
+    return o
 
 
 
 def agrupamento_estados_distintos(valores, datas):
-    conta_estados = 0
     mapa_estados = {}
-    nos_de_cada_data = []
-    for i, valor  in enumerate(valores):
-        chave = ""
-        for carac in valor:
-            # transformando 0, 0.25, 0.5... em 0, 1, 2...
-            chave += str(int(4 * carac))
-        # chave = int(chave)
-        if chave not in mapa_estados.keys():
-            mapa_estados[chave] = conta_estados
-            nos_de_cada_data.append(conta_estados)
-            conta_estados += 1
-        else:
-            nos_de_cada_data.append(mapa_estados[chave])
+    for i in range(len(valores)-1):
+        valor = valores[i]
+        # acha o hash para i e i +1
+        chave_i = make_hash_sha256(valor)
+        chave_ip1 = make_hash_sha256(valores[i+1])
 
-    # print(nos_de_cada_data)
-    return nos_de_cada_data, valores, datas
+        # se a chave i nao esta no mapa, insere o dicionario de i+1 com o valor de 1
+        if chave_i not in mapa_estados.keys():
+            mapa_estados[chave_i] = {chave_ip1:1}
+        else:
+            # se ele ja existe, procura se i+1 esta nas adjacencias de i, se estiver apenas incrementa
+            # caso contraro, insere i+1 na adjacencia de i com o valor de 1
+            if chave_ip1 in mapa_estados[chave_i]:
+                mapa_estados[chave_i][chave_ip1]+=1
+            else:
+                mapa_estados[chave_i][chave_ip1] = 1
+    return valores, datas, mapa_estados
