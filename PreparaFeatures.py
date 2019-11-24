@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from tratamento_dados import obter_media_alisada, extracao_caracteristicas
 from geracao_da_rede  import agrupamento_estados_distintos
 from encontrar_comunidades import cria_comundades
+from classificadores import classifica
 # Recebe lista de fechamentos por ordem cronologica
 valores, datas = obter_dados()
 import hashlib
@@ -82,7 +83,7 @@ for comunidade in set(comunidades.values()):
         rotulo_comunidade.append(1)
     else:
         printable_string += " DOWN"
-        rotulo_comunidade.append(-1)
+        rotulo_comunidade.append(0)
     print(printable_string)
 
 up_or_down = []
@@ -91,6 +92,11 @@ for comunidade in comunidade_valor:
 
 plt.scatter(datas, valores_originais, c=up_or_down)
 plt.show()
+
+# rodar os classificadores com 'valores' (X) e 'up_or_down' (Y)
+for alpha in range(2, 10):
+    classifica(valores, up_or_down, alpha*0.1)
+
 
 #
 # for i in range(len(valores)):
