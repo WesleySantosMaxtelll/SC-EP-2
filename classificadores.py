@@ -7,7 +7,7 @@ from sklearn.metrics import classification_report
 
 def devolve_classificador(name):
     if (name == 'LogReg'):
-        return linear_model.LogisticRegression(n_jobs=1, C=100)
+        return linear_model.LogisticRegression(solver='lbfgs',n_jobs=1, C=100)
     if (name == 'Baseline'):
         return DummyClassifier(strategy="most_frequent", random_state=None, constant=None)
     elif (name == 'KNN'):
@@ -34,4 +34,49 @@ def classifica(X, Y, alpha):
         pred = clf.predict(x_teste)
         report = classification_report(y_teste,pred, target_names=['baixa', 'alta'])
         print(report)
+        print('\n')
+
+
+def calcula_ganhos(X, Y, valor_indice, datas, alpha, valor_investimento_inicial):
+    x_treino, y_treino = X[:int(alpha * len(X))], Y[:int(alpha * len(Y))]
+    x_teste, y_teste = X[int(alpha * len(X)):], Y[int(alpha * len(Y)):]
+    valor_dia_a_dia = valor_indice[int(alpha * len(valor_indice)):]
+    print (datas[int(alpha*len(datas)):][0])
+    print (
+        '\n\n\nCom um alpha de {}, existe {} instancias de treino e {} instancias de teste'.format(alpha, len(x_treino),
+                                                                                                   len(x_teste)))
+    classificadores = ['KNN']
+    esta_investido = False
+    indice_momento_compra = None
+
+    for c in classificadores:
+        print ('Classificando com {}'.format(c))
+        clf = devolve_classificador(c)
+        clf.fit(x_treino, y_treino)
+        venda = 0
+        compra = 0
+        valor_investimento = valor_investimento_inicial
+        for x_t, y_t, v_t in zip(x_teste, y_teste, valor_dia_a_dia):
+            pred = clf.predict([x_t])
+
+            # print ('{} {}'.format(pred[0], y_t))
+            if pred[0] == 0 and esta_investido:
+                if venda == 0:
+                    ind = v_t/indice_momento_compra
+                    valor_investimento *=ind
+                    esta_investido = False
+                    venda =0
+                else:
+                    venda+=1
+            elif pred[0] == 1 and not esta_investido:
+                if compra == 0:
+                    indice_momento_compra = v_t
+                    esta_investido = True
+                    compra = 0
+                else:
+                    compra+=1
+
+        print (valor_investimento)
+            # report = classification_report(y_teste, pred, target_names=['baixa', 'alta'])
+            # print(report)
         print('\n')

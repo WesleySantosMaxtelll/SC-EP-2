@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from tratamento_dados import obter_media_alisada, extracao_caracteristicas
 from geracao_da_rede  import agrupamento_estados_distintos
 from encontrar_comunidades import cria_comundades
-from classificadores import classifica
+from classificadores import classifica, calcula_ganhos
 # Recebe lista de fechamentos por ordem cronologica
 valores, datas = obter_dados()
 import hashlib
@@ -95,8 +95,8 @@ plt.show()
 
 # rodar os classificadores com 'valores' (X) e 'up_or_down' (Y)
 for alpha in range(2, 10):
-    classifica(valores, up_or_down, alpha*0.1)
-
+#     classifica(valores, up_or_down, alpha*0.1)
+    calcula_ganhos(valores, up_or_down,valores_originais, datas, 0.1*alpha, 10000)
 
 #
 # for i in range(len(valores)):
