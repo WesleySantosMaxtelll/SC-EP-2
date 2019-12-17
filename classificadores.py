@@ -23,10 +23,10 @@ def devolve_classificador(name):
 
 
 def classifica(X, Y, alpha):
-    x_treino, y_treino = X[:int(alpha*len(X))], Y[:int(alpha*len(Y))]
-    x_teste, y_teste = X[int(alpha * len(X)):], Y[int(alpha * len(Y)):]
-    print ('\n\n\nCom um alpha de {}, existe {} instancias de treino e {} instancias de teste'.format(alpha, len(x_treino), len(x_teste)))
-    classificadores = ['Baseline', 'LogReg', 'KNN', 'NB', 'MLP']
+    x_treino, y_treino = X[:alpha], Y[:alpha]
+    x_teste, y_teste = X[alpha:], Y[alpha:]
+    print ('\n\n\nExiste {} instancias de treino e {} instancias de teste'.format(len(x_treino), len(x_teste)))
+    classificadores = ['Baseline', 'LogReg', 'KNN', 'MLP']
     for c in classificadores:
         print ('Classificando com {}'.format(c))
         clf = devolve_classificador(c)
@@ -41,9 +41,8 @@ def calcula_ganhos(X, Y, valor_indice, datas, alpha, valor_investimento_inicial)
     x_treino, y_treino = X[:int(alpha * len(X))], Y[:int(alpha * len(Y))]
     x_teste, y_teste = X[int(alpha * len(X)):], Y[int(alpha * len(Y)):]
     valor_dia_a_dia = valor_indice[int(alpha * len(valor_indice)):]
-    print (datas[int(alpha*len(datas)):][0])
     print (
-        '\n\n\nCom um alpha de {}, existe {} instancias de treino e {} instancias de teste'.format(alpha, len(x_treino),
+        '\n\n\nExistem {} instancias de treino e {} instancias de teste'.format(len(x_treino),
                                                                                                    len(x_teste)))
     classificadores = ['KNN']
     esta_investido = False

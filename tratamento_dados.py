@@ -64,10 +64,9 @@ def extracao_caracteristicas(dados, datas, j=5):
             fz[i].append(_arredonda_em_passos(norm.cdf(fp)))
 
     # print(fp)
-    print(fz)
+    # print(fz)
     comprimento_minimo = min([len(fz[x]) for x in fz])
     V = []
     for i in range(1, comprimento_minimo+1):
         V.insert(0, [fz[x][-i] for x in range(1,7)])
-    print('apenas para debugar')
     return V, datas[-len(V):], dados[-len(V):]
