@@ -33,6 +33,7 @@ def cria_comundades(nodes_hash_dict):
                                node_color=str(count / size))
 
     nx.draw_networkx_edges(G, pos, alpha=0.5)
+    plt.title('Comunidades')
     plt.show()
     return partition
 
